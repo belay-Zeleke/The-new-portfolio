@@ -91,7 +91,7 @@ function TiltPortrait() {
       className="img-frame relative overflow-hidden rounded-[2rem]"
     >
       <img
-        src="../../public/images/profile 1.png"
+        src="../../public/images/profile-1.png"
         alt="Portrait of Belay Zeleke, Full Stack Web and App Developer"
         className="w-full aspect-[4/5] object-cover"
         loading="lazy"
