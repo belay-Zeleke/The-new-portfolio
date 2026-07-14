@@ -25,11 +25,11 @@ import {
 } from 'react-icons/si';
 
 const badges = [
-  { icon: SiReact, label: 'React', color: '#61DAFB', top: '-7%', left: '40%', delay: 0 },
-  { icon: SiFirebase, label: 'Firebase', color: '#FFCA28', top: '14%', left: '-17%', delay: 0.5 },
-  { icon: SiNodedotjs, label: 'Node.js', color: '#5FA04E', top: '32%', left: '82%', delay: 1 },
-  { icon: SiMysql, label: ' MySQL ', color: '#4479A1', top: '62%', left: '-17%', delay: 1.5 },
-  { icon: SiNextdotjs, label: 'Next.js', color: 'currentColor', top: '76%', left: '82%', delay: 2 },
+  { icon: SiReact, label: 'React', color: '#61DAFB', top: '-6%', left: '40%', delay: 0 },
+  { icon: SiFirebase, label: 'Firebase', color: '#FFCA28', top: '14%', left: '-12%', delay: 0.5 },
+  { icon: SiNodedotjs, label: 'Node.js', color: '#5FA04E', top: '32%', left: '92%', delay: 1 },
+  { icon: SiMysql, label: 'MySQL', color: '#4479A1', top: '58%', left: '-12%', delay: 1.5 },
+  { icon: SiNextdotjs, label: 'Next.js', color: 'currentColor', top: '76%', left: '92%', delay: 2 },
   { icon: SiDocker, label: 'Docker', color: '#2496ED', top: '98%', left: '40%', delay: 2.5 },
 ];
 
@@ -61,15 +61,8 @@ const marqueeItems = [
   { icon: SiSupabase, label: 'Supabase' },
 ];
 
-const portraitImages = [
-  '/images/profile-1.png',
-  '/images/profile-2.png',
-  '/images/profile-3.png',
-  '/images/profile-4.png',
-  '/images/profile-5.png',
-];
+const portraitImages = ['/images/profile-3.png', '/images/profile-2.png'];
 const CYCLE_MS = 4500;
-
 
 function FlipPortrait() {
   const ref = useRef(null);
@@ -111,25 +104,20 @@ function FlipPortrait() {
             className="absolute inset-0"
             style={{ transformStyle: 'preserve-3d' }}
           >
-           {portraitImages.map((image, index) => (
-  <motion.img
-    key={image}
-    src={image}
-    alt={`Portrait ${index + 1}`}
-    className="absolute inset-0 w-full h-full object-cover"
-    initial={false}
-    animate={{
-      opacity: active === index ? 1 : 0,
-      scale: active === index ? 1 : 1.05,
-    }}
-    transition={{
-      duration: 0.8,
-      ease: 'easeInOut',
-    }}
-    loading="lazy"
-  />
-))}
-
+            <img
+              src={portraitImages[0]}
+              alt="Portrait of Belay Zeleke, Full Stack Web and App Developer"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ backfaceVisibility: 'hidden' }}
+              loading="lazy"
+            />
+            <img
+              src={portraitImages[1]}
+              alt="Portrait of Belay Zeleke, Full Stack Web and App Developer, second look"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+              loading="lazy"
+            />
           </motion.div>
         </div>
 
@@ -219,7 +207,7 @@ export default function Hero() {
       />
 
       <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
+        <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
           <div>
             <motion.div
               initial={{ opacity: 0, y: 12 }}
