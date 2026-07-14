@@ -25,11 +25,11 @@ import {
 } from 'react-icons/si';
 
 const badges = [
-  { icon: SiReact, label: 'React', color: '#61DAFB', top: '-10%', left: '40%', delay: 0 },
-  { icon: SiFirebase, label: 'Firebase', color: '#FFCA28', top: '14%', left: '-25%', delay: 0.5 },
-  { icon: SiNodedotjs, label: 'Node.js', color: '#5FA04E', top: '32%', left: '77%', delay: 1 },
-  { icon: SiMysql, label: ' MySQL ', color: '#4479A1', top: '62%', left: '-25%', delay: 1.5 },
-  { icon: SiNextdotjs, label: 'Next.js', color: 'currentColor', top: '76%', left: '77%', delay: 2 },
+  { icon: SiReact, label: 'React', color: '#61DAFB', top: '-7%', left: '40%', delay: 0 },
+  { icon: SiFirebase, label: 'Firebase', color: '#FFCA28', top: '14%', left: '-17%', delay: 0.5 },
+  { icon: SiNodedotjs, label: 'Node.js', color: '#5FA04E', top: '32%', left: '82%', delay: 1 },
+  { icon: SiMysql, label: ' MySQL ', color: '#4479A1', top: '62%', left: '-17%', delay: 1.5 },
+  { icon: SiNextdotjs, label: 'Next.js', color: 'currentColor', top: '76%', left: '82%', delay: 2 },
   { icon: SiDocker, label: 'Docker', color: '#2496ED', top: '98%', left: '40%', delay: 2.5 },
 ];
 
