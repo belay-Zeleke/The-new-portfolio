@@ -118,7 +118,7 @@ function TiltPortrait() {
         className="code-window relative p-2 animate-floaty"
       >
         <img
-          src="/images/profile-2.png"
+          src="/images/profile.png"
           alt="Portrait of Belay Zeleke, Full Stack Web and App Developer"
           className="w-full rounded-lg object-cover"
           loading="lazy"
@@ -172,7 +172,7 @@ function TiltPortrait() {
 
 export default function About() {
   return (
-    <section id="about" className="relative py-5 sm:py-5 overflow-hi  dden">
+    <section id="about" className="relative py-5 sm:py-5 overflow-hidden">
       <motion.div
         className="absolute top-10 left-[-10%] w-[340px] h-[340px] rounded-full bg-accent/10 blur-3xl"
         animate={{ y: [0, 28, 0], x: [0, 18, 0] }}
@@ -200,33 +200,48 @@ export default function About() {
           <p className="eyebrow">About Me</p>
         </motion.div>
 
+
         <div className="grid md:grid-cols-[340px_1fr] gap-10 items-center">
-          <TiltPortrait />
+  <div className="hidden md:block">
+    <TiltPortrait />
+  </div>
 
-          <div>
-            <motion.h2
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="section-heading"
-            >
-              I build reliable software.
-            </motion.h2>
+  <div>
+    <motion.h2
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="section-heading"
+    >
+      I build reliable software.
+    </motion.h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-6 text-muted/80 leading-relaxed max-w-2xl"
-            >
-              I'm a Full Stack Web and App Developer focused on building responsive websites, web applications, mobile applications, APIs, and backend systems. I care about clean architecture, readable code, and interfaces that feel effortless to use and I enjoy the process of taking a product from a rough idea to something people rely on every day.
-              <br /> <br />
-              I enjoy working across the entire development lifecycle, from planning and architecture to deployment and maintenance. Constant learning and exploring new technologies are an important part of how I work, helping me build solutions that are modern, scalable, and reliable. My goal is not just to write code, but to create products that deliver real value and provide a smooth experience for the people who use them.
-            </motion.p>
-          </div>
-        </div>
+    <motion.p
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+      className="mt-6 text-muted/80 leading-relaxed max-w-2xl"
+    >
+      I'm a Full Stack Web and App Developer focused on building responsive
+      websites, web applications, mobile applications, APIs, and backend
+      systems. I care about clean architecture, readable code, and interfaces
+      that feel effortless to use and I enjoy the process of taking a product
+      from a rough idea to something people rely on every day.
+
+      <br />
+      <br />
+
+      I enjoy working across the entire development lifecycle, from planning
+      and architecture to deployment and maintenance. Constant learning and
+      exploring new technologies are an important part of how I work, helping
+      me build solutions that are modern, scalable, and reliable. My goal is
+      not just to write code, but to create products that deliver real value
+      and provide a smooth experience for the people who use them.
+    </motion.p>
+  </div>
+</div>
 
         <motion.div
           variants={traitGrid}

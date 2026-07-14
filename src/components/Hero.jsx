@@ -1,6 +1,6 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useMotionTemplate, useSpring, useTransform } from 'framer-motion';
-import { TbDownload, TbMail, TbArrowUpRight } from 'react-icons/tb';
+import { TbDownload, TbMail, TbArrowUpRight, TbArrowsExchange2 } from 'react-icons/tb';
 import {
   SiReact,
   SiNodedotjs,
@@ -25,10 +25,10 @@ import {
 } from 'react-icons/si';
 
 const badges = [
-  { icon: SiReact, label: 'React', color: '#61DAFB', top: '-6%', left: '40%', delay: 0 },
-  { icon: SiFirebase, label: 'Firebase', color: '#FFCA28', top: '14%', left: '-12%', delay: 0.5 },
+  { icon: SiReact, label: 'React', color: '#61DAFB', top: '-10%', left: '40%', delay: 0 },
+  { icon: SiFirebase, label: 'Firebase', color: '#FFCA28', top: '14%', left: '-25%', delay: 0.5 },
   { icon: SiNodedotjs, label: 'Node.js', color: '#5FA04E', top: '32%', left: '77%', delay: 1 },
-  { icon: SiMysql, label: 'MySQL DB', color: '#4479A1', top: '58%', left: '-12%', delay: 1.5 },
+  { icon: SiMysql, label: ' MySQL ', color: '#4479A1', top: '62%', left: '-25%', delay: 1.5 },
   { icon: SiNextdotjs, label: 'Next.js', color: 'currentColor', top: '76%', left: '77%', delay: 2 },
   { icon: SiDocker, label: 'Docker', color: '#2496ED', top: '98%', left: '40%', delay: 2.5 },
 ];
@@ -61,8 +61,19 @@ const marqueeItems = [
   { icon: SiSupabase, label: 'Supabase' },
 ];
 
-function TiltPortrait() {
+const portraitImages = [
+  '/images/profile-1.png',
+  '/images/profile-2.png',
+  '/images/profile-3.png',
+  '/images/profile-4.png',
+  '/images/profile-5.png',
+];
+const CYCLE_MS = 4500;
+
+
+function FlipPortrait() {
   const ref = useRef(null);
+  const [active, setActive] = useState(0);
   const px = useMotionValue(0.5);
   const py = useMotionValue(0.5);
   const springX = useSpring(px, { stiffness: 150, damping: 18 });
@@ -71,6 +82,11 @@ function TiltPortrait() {
   const rotateY = useTransform(springX, [0, 1], [-7, 7]);
   const glareX = useTransform(springX, [0, 1], ['0%', '100%']);
   const glareY = useTransform(springY, [0, 1], ['0%', '100%']);
+
+  useEffect(() => {
+    const id = setInterval(() => setActive((a) => (a + 1) % portraitImages.length), CYCLE_MS);
+    return () => clearInterval(id);
+  }, []);
 
   const handleMouseMove = (e) => {
     const rect = ref.current.getBoundingClientRect();
@@ -83,27 +99,74 @@ function TiltPortrait() {
   };
 
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-      className="img-frame relative overflow-hidden rounded-[2rem]"
-    >
-      <img
-        src="/images/profile-1.png"
-        alt="Portrait of Belay Zeleke, Full Stack Web and App Developer"
-        className="w-full aspect-[4/5] object-cover"
-        loading="lazy"
-      />
+    <div ref={ref} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ perspective: 1200 }}>
       <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: useMotionTemplate`radial-gradient(260px circle at ${glareX} ${glareY}, rgba(255,255,255,0.18), transparent 70%)`,
-        }}
-        aria-hidden="true"
-      />
-    </motion.div>
+        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+        className="img-frame relative overflow-hidden rounded-[2rem]"
+      >
+        <div className="relative w-full aspect-[4/5]" style={{ transformStyle: 'preserve-3d' }}>
+          <motion.div
+            animate={{ rotateY: active === 0 ? 0 : 180 }}
+            transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
+            className="absolute inset-0"
+            style={{ transformStyle: 'preserve-3d' }}
+          >
+           {portraitImages.map((image, index) => (
+  <motion.img
+    key={image}
+    src={image}
+    alt={`Portrait ${index + 1}`}
+    className="absolute inset-0 w-full h-full object-cover"
+    initial={false}
+    animate={{
+      opacity: active === index ? 1 : 0,
+      scale: active === index ? 1 : 1.05,
+    }}
+    transition={{
+      duration: 0.8,
+      ease: 'easeInOut',
+    }}
+    loading="lazy"
+  />
+))}
+
+          </motion.div>
+        </div>
+
+        <motion.div
+          className="pointer-events-none absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300"
+          style={{
+            background: useMotionTemplate`radial-gradient(260px circle at ${glareX} ${glareY}, rgba(255,255,255,0.18), transparent 70%)`,
+          }}
+          aria-hidden="true"
+        />
+
+        <button
+          onClick={() => setActive((a) => (a + 1) % portraitImages.length)}
+          aria-label="Switch photo"
+          className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full glass flex items-center justify-center text-fg hover:text-accent hover:ring-1 hover:ring-accent/25 transition-colors"
+        >
+          <TbArrowsExchange2 size={16} />
+        </button>
+
+        <div className="absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5 z-10">
+          {portraitImages.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              aria-label={`Show photo ${i + 1}`}
+              className="p-1.5"
+            >
+              <span
+                className={`block rounded-full transition-all duration-300 ${
+                  active === i ? 'w-5 h-1.5 bg-accent' : 'w-1.5 h-1.5 bg-fg/40'
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      </motion.div>
+    </div>
   );
 }
 
@@ -156,7 +219,7 @@ export default function Hero() {
       />
 
       <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
           <div>
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -249,7 +312,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="hidden md:block relative mx-auto w-full max-w-[24rem] lg:max-w-[28rem]"
+            className="order-first md:order-none relative mx-auto w-full max-w-[16rem] sm:max-w-[20rem] md:max-w-[24rem] lg:max-w-[28rem] mb-4 md:mb-0"
           >
             <div className="absolute inset-6 rounded-[2rem] bg-accent/10 blur-2xl" aria-hidden="true" />
 
@@ -271,7 +334,7 @@ export default function Hero() {
               />
             </motion.svg>
 
-            <TiltPortrait />
+            <FlipPortrait />
 
             {badges.map((badge) => (
               <TechBadge key={badge.label} badge={badge} />
